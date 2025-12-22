@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Departamentos</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contenedor {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lista-departamentos {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .lista-departamentos h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .lista-departamentos ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .lista-departamentos li {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .lista-departamentos li:last-child {
+            border-bottom: none;
+        }
+
+        .numero {
+            font-weight: bold;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+    <div class="lista-departamentos">
+        <h2>Departamentos</h2>
+
+        {% if departamentos %}
+            <ul>
+                {% for depto in departamentos %}
+                    <li>
+                        <span>{{ depto.nombre }}</span>
+                        <span class="numero">N° {{ depto.nro_departamento }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="text-align: center;">No hay departamentos cargados.</p>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
