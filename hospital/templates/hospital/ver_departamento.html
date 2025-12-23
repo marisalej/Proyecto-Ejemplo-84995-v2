@@ -1,0 +1,37 @@
+{% extends 'hospital/index.html' %}
+
+{% block title %}Detalle del Departamento | Hospital Central{% endblock %}
+{% block bienvenida %} {% endblock %}
+{% block contenido %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+        <div class="card p-4">
+            <div class="card-body">
+                <h3 class="card-title fw-bold mb-3">{{ departamento.nombre }}</h3>
+
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item">
+                    <strong>N° de departamento:</strong> {{ departamento.nro_departamento }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Cantidad de empleados:</strong>
+                    {{ departamento.nro_empleados|default:"No especificado" }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Email de contacto:</strong> {{ departamento.email_dpto }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Fecha de creación:</strong> {{ departamento.fecha_de_creacion }}
+                </li>
+            </ul>
+
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'listar_departamentos' %}" class="btn btn-outline-secondary">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'hospital/index.html' %}
+
+{% block titulo %}<title>Hospital - Crear departamentos</title>{% endblock %}
+
+{% block bienvenida %} {% endblock %}
+
+{% block contenido %}
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+
+                        <h2 class="text-center text-primary fw-bold mb-4">
+                            Crear Departamento Médico
+                        </h2>
+
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <!-- Nombre -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Nombre del departamento
+                                </label>
+                                {{ form.nombre }}
+                                {{ form.nombre.errors }}
+                            </div>
+
+                            <!-- Número -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Número de departamento
+                                </label>
+                                {{ form.nro_departamento }}
+                                {{ form.nro_departamento.errors }}
+                            </div>
+
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Email del departamento
+                                </label>
+                                {{ form.email_dpto }}
+                                {{ form.email_dpto.errors }}
+                            </div>
+
+                            <!-- Empleados -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Cantidad de empleados
+                                </label>
+                                {{ form.nro_empleados }}
+                                {{ form.nro_empleados.errors }}
+                            </div>
+
+                            <!-- Botones -->
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Guardar Departamento
+                                </button>
+                                <a href="{% url 'listar_departamentos' %}" class="btn btn-outline-secondary">
+                                    Cancelar
+                                </a>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
