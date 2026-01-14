@@ -7,4 +7,6 @@ urlpatterns = [
     path("lista_departamentos", listar_departamentos, name="listar_departamentos"),
     path("crear_depto", crear_departamento, name="crear_departamento"),
     path("ver_departamento/<int:pk>/", ver_departamento, name="ver_departamento"),
+    path("actualizar_depto/<int:nro_departamento>/", actualizar_departamento, name="actualizar_departamento"),
+    path("eliminar_depto/<int:nro_departamento>/", eliminar_departamento, name="eliminar_departamento")
 ]

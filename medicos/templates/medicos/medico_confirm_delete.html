@@ -1,0 +1,30 @@
+{% extends "hospital/index.html" %}
+{% block bienvenida %}
+
+{% endblock %}
+{% block contenido %}
+<div class="container mt-4">
+    <h2>Eliminar médico</h2>
+
+    <p>
+        ¿Estás seguro que deseas eliminar al siguiente médico?
+    </p>
+
+    <ul>
+        <li><strong>Nombre:</strong> {{ object.nombre }} {{ object.apellido }}</li>
+        <li><strong>Especialidad:</strong> {{ object.get_especialidad_display }}</li>
+        <li><strong>Código:</strong> {{ object.code }}</li>
+    </ul>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            Sí, eliminar
+        </button>
+
+        <a href="{% url 'medico_detail' object.code %}" class="btn btn-secondary">
+            Cancelar
+        </a>
+    </form>
+</div>
+{% endblock %}

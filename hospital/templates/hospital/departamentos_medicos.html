@@ -2,124 +2,59 @@
 
 {% block titulo %}<title>Hospital - Departamentos</title>{% endblock %}
 
-{% block bienvenida %}
-    <section class="py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h1 class="fw-bold text-primary">
-                        Bienvenidos al Hospital Central
-                    </h1>
-                    <p class="text-secondary mt-3">
-                        Atención médica de calidad, profesionales capacitados
-                        y un compromiso constante con la salud de nuestra comunidad.
-                    </p>
-                    <a href="{%url 'home'%}" class="btn btn-primary mt-3">
-                        Volver al Home
-                    </a>
-                </div>
-                <div class="col-md-6 text-center">
-                    <img
-                        src="https://cdn-icons-png.flaticon.com/512/2967/2967350.png"
-                        alt="Hospital"
-                        class="img-fluid"
-                        style="max-width: 300px;"
-                    >
-                </div>
-            </div>
-        </div>
-    </section>
+{% block bienvenida %} 
+
 {% endblock %}
 
 {% block contenido %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Listado de Departamentos</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
-        }
-
-        .contenedor {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lista-departamentos {
-            background-color: #ffffff;
-            padding: 30px 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-        }
-
-        .lista-departamentos h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .lista-departamentos ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .lista-departamentos li {
-            padding: 12px;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .lista-departamentos li:last-child {
-            border-bottom: none;
-        }
-
-        .numero {
-            font-weight: bold;
-            color: #555;
-        }
-    </style>
-</head>
-
-<body>
-<div class="d-flex gap-2">
-    <form method="GET" class="d-flex" role="search">
-        <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre..." value="{{request.GET.nombre}}">
-    </form>
-
-<a href="{% url 'crear_departamento' %}" class="btn btn-primary"> + Nuevo dpto</a>
+<div class="card p-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <h2 class="fw-bold mb-0">Departamentos médicos</h2>
+      <div class="d-flex gap-2">
+        <form method="GET" class="d-flex" role="search">
+            <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre..." value="{{ request.GET.nombre }}">
+        </form>
+      <a href="{% url 'crear_departamento' %}" class="btn btn-primary"> + Nuevo dpto</a>
+      </div>
 </div>
 
-<div class="contenedor">
-    <div class="lista-departamentos">
-        <h2>Departamentos</h2>
-
-        {% if departamentos %}
-            <ul>
-                {% for depto in departamentos %}
-                    <li>
-                        <span>{{ depto.nombre }}</span>
-                        <span class="numero">N° {{ depto.nro_departamento }}</span>
-                        <a href="{% url 'ver_departamento' depto.pk %}"
-                            class="btn btn-sm btn-outline-primary">
-                            Ver
-                        </a>
-                    </li>
+{% if departamentos %}
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Nombre</th>
+                    <th>N° Departamento</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dept in departamentos %}
+                    <tr>
+                        <td class="fw-semibold">{{ dept.nombre }}</td>
+                        <td>{{ dept.nro_departamento }}</td>
+                        <td>{{ dept.email_dpto }}</td>
+                        <td>
+                          <div class="btn-group">
+                            <a href="{% url 'ver_departamento' dept.pk %}" class="btn btn-sm btn-info text-white"> Ver</a>
+                            <a href="{% url 'actualizar_departamento' dept.nro_departamento %}" class="btn btn-sm btn-warning text-white"> Actualizar</a>
+                            <a 
+                                href="{% url 'eliminar_departamento' dept.nro_departamento %}" 
+                                class="btn btn-sm btn-danger text-white"
+                                onclick="return confirm('¿Seguro que queres eliminar este departamento?');"> 
+                                Eliminar
+                            </a>
+                          </div>
+                        </td>
+                    </tr>
                 {% endfor %}
-            </ul>
-        {% else %}
-            <p style="text-align: center;">No hay departamentos cargados.</p>
-        {% endif %}
+            </tbody>
+        </table>
     </div>
-</div>
+{% else %}
+    <div class="alert alert-info">No hay departamentos para mostrar.</div>
+{% endif %}
 
-</body>   
+</div>
 {% endblock %}

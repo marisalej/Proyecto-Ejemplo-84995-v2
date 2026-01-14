@@ -1,0 +1,68 @@
+{% extends 'hospital/index.html' %}
+
+{% block title %}Detalle Médico | Hospital Central{% endblock %}
+
+{% block cardCenter %}{% endblock %}
+{% block bienvenida %}
+
+{% endblock %}
+{% block contenido %}
+
+<div class="card p-4">
+
+    <h2 class="fw-bold mb-4">Detalle del Médico</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <p class="mb-2">
+                <strong>Nombre:</strong>
+                {{ medico.nombre }} {{ medico.apellido }}
+            </p>
+
+            <p class="mb-2">
+                <strong>Especialidad:</strong>
+                {{ medico.get_especialidad_display }}
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <p class="mb-2">
+                <strong>Código:</strong>
+                {{ medico.code }}
+            </p>
+
+            <p class="mb-2">
+                <strong>Fecha de inicio:</strong>
+                {{ medico.fecha_de_inicio|date:"d/m/Y" }}
+            </p>
+        </div>
+    </div>
+
+    <!-- BOTONERA -->
+    <div class="d-flex gap-2">
+        <a
+            href="{% url 'medico_update' medico.code %}"
+            class="btn btn-warning text-white"
+        >
+            Editar
+        </a>
+
+        <a
+            href="{% url 'medico_delete' medico.pk %}"
+            class="btn btn-danger"
+            onclick="return confirm('¿Seguro que querés eliminar este médico?');"
+        >
+            Eliminar
+        </a>
+
+        <a
+            href="{% url 'medico_list' %}"
+            class="btn btn-secondary"
+        >
+            Volver
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

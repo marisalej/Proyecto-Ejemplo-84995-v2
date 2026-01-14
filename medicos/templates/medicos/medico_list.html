@@ -1,0 +1,87 @@
+{% extends 'hospital/index.html' %}
+
+{% block title %}Médicos | Hospital Central{% endblock %}
+
+{% block cardCenter %}{% endblock %}
+{% block bienvenida %}
+
+{% endblock %}
+{% block contenido %}
+
+<div class="card p-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <h2 class="fw-bold mb-0">Médicos</h2>
+
+        <div class="d-flex gap-2">
+            <form method="get" class="d-flex" role="search">
+                <input
+                    type="text"
+                    name="q"
+                    class="form-control"
+                    placeholder="Buscar por nombre o apellido"
+                    value="{{ request.GET.q }}"
+                >
+            </form>
+
+            <a href="{% url 'medico_create' %}" class="btn btn-primary">
+                + Nuevo Médico
+            </a>
+        </div>
+    </div>
+
+    {% if medicos %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Especialidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for medico in medicos %}
+                        <tr>
+                            <td class="fw-semibold">
+                                {{ medico.nombre }} {{ medico.apellido }}
+                            </td>
+                            <td>
+                                {{ medico.get_especialidad_display }}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a
+                                        href="{% url 'medico_detail' medico.code %}"
+                                        class="btn btn-sm btn-info text-white"
+                                    >
+                                        Ver
+                                    </a>
+                                    <a
+                                        href="{% url 'medico_update' medico.code %}"
+                                        class="btn btn-sm btn-warning text-white"
+                                    >
+                                        Editar
+                                    </a>
+                                    <a
+                                        href="{% url 'medico_delete' medico.pk %}"
+                                        class="btn btn-sm btn-danger"
+                                        onclick="return confirm('¿Seguro que querés eliminar este médico?');"
+                                    >
+                                        Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No hay médicos cargados.
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

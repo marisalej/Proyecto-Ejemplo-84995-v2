@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from hospital.models import DepartamentoMedico
-from hospital.forms import DepartamentoMedicoForm
+from hospital.forms import DepartamentoMedicoForm, DepartamentoMedicoUpdateForm
 
 def home(request):
     return render(request, "hospital/index.html")
@@ -43,3 +43,26 @@ def ver_departamento(request, pk):
     }
     
     return render(request, 'hospital/ver_departamento.html', context)
+
+def actualizar_departamento(request, nro_departamento):
+    departamento = get_object_or_404(DepartamentoMedico, nro_departamento=nro_departamento)
+
+    if request.method == "POST":
+        form = DepartamentoMedicoUpdateForm(request.POST, instance=departamento)
+        if form.is_valid():
+            form.save()
+            return redirect("ver_departamento", pk=departamento.pk)
+    else:
+        form = DepartamentoMedicoUpdateForm(instance=departamento)
+    
+    return render(request, 'hospital/crear_departamento.html', {
+        "form": form, 
+        "departamento": departamento,
+        "update": True
+    })
+
+def eliminar_departamento(request, nro_departamento):
+    departamento = get_object_or_404(DepartamentoMedico, nro_departamento=nro_departamento)
+    departamento.delete()
+    return redirect("listar_departamentos")
+    
