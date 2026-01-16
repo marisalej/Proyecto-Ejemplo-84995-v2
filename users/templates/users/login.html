@@ -1,0 +1,47 @@
+{% extends "hospital/index.html" %}
+
+{% block titulo %} Iniciar sesión | Colegio público N°5 {% endblock %}
+{% block bienvenida%}
+
+{% endblock %}
+{% block contenido %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4">
+          <h3 class="text-center mb-4 fw-bold text-primary">Iniciar sesión</h3>
+
+          {% if form.errors %}
+            <div class="alert alert-danger">
+              <strong>Atención:</strong> El nombre de usuario o la contraseña son incorrectos.
+            </div>
+          {% endif %}
+
+          <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="id_username" class="form-label fw-semibold">Usuario</label>
+              {{ form.username }}
+            </div>
+            <div class="mb-3">
+              <label for="id_password" class="form-label fw-semibold">Contraseña</label>
+              <input type="password" name="password" class="form-control" id="id_password" required>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary fw-semibold">Ingresar</button>
+            </div>
+          </form>
+
+          <div class="text-center mt-3">
+            <small class="text-muted">¿No tenés cuenta?
+              <a href="{% url 'register' %}" class="text-decoration-none text-primary fw-semibold">Registrate</a>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

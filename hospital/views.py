@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from hospital.models import DepartamentoMedico
 from hospital.forms import DepartamentoMedicoForm, DepartamentoMedicoUpdateForm
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, "hospital/index.html")
 
-
+@login_required
 def listar_departamentos(request):
     nombre = request.GET.get("nombre")
     departamentos_query = DepartamentoMedico.objects.all() #list(QuerySet[Depto, ...., Depto, ....]) 
@@ -23,7 +24,7 @@ def listar_departamentos(request):
 #PUT - actualizar info
 #DELETE - eliminar info
 
-
+@login_required
 def crear_departamento(request):
     if request.method == "POST":
         form = DepartamentoMedicoForm(request.POST)
@@ -35,7 +36,7 @@ def crear_departamento(request):
     
     return render(request, 'hospital/crear_departamento.html', {'form': form})
 
-
+@login_required
 def ver_departamento(request, pk):
     departamento = get_object_or_404(DepartamentoMedico, pk=pk)
     context = {
@@ -44,6 +45,8 @@ def ver_departamento(request, pk):
     
     return render(request, 'hospital/ver_departamento.html', context)
 
+
+@login_required
 def actualizar_departamento(request, nro_departamento):
     departamento = get_object_or_404(DepartamentoMedico, nro_departamento=nro_departamento)
 
@@ -61,6 +64,7 @@ def actualizar_departamento(request, nro_departamento):
         "update": True
     })
 
+@login_required
 def eliminar_departamento(request, nro_departamento):
     departamento = get_object_or_404(DepartamentoMedico, nro_departamento=nro_departamento)
     departamento.delete()

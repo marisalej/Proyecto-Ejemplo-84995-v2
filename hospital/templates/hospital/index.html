@@ -30,16 +30,42 @@
                             Home
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-semibold" href="{% url 'listar_departamentos' %}">
-                            Departamentos
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-semibold" href="{% url 'medico_list' %}">
-                            Médicos
-                        </a>
-                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold" href="{% url 'listar_departamentos' %}">
+                                Departamentos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold" href="{% url 'medico_list' %}">
+                                Médicos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold" href="{% url 'perfil_detail' %}">
+                                Perfil
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <form action="{% url 'logout' %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <a class="nav-link fw-semibold" href="{% url 'logout' %}">
+                                Cerrar sesión
+                                </a>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold" href="{% url 'register' %}">
+                                Registrarse
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold" href="{% url 'login' %}">
+                                Iniciar sesión
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -58,7 +84,7 @@
                         Atención médica de calidad, profesionales capacitados
                         y un compromiso constante con la salud de nuestra comunidad.
                     </p>
-                    <a href="#" class="btn btn-primary mt-3">
+                    <a href="{% url 'listar_departamentos' %}" class="btn btn-primary mt-3">
                         Ver Departamentos
                     </a>
                 </div>

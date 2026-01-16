@@ -1,0 +1,52 @@
+{% extends "hospital/index.html" %}
+
+{% block titulo %} Registro de usuario | Colegio público N°5 {% endblock %}
+{% block bienvenida%}
+
+{% endblock %}
+{% block contenido %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4">
+          <h3 class="text-center mb-4 fw-bold text-primary">Crear cuenta</h3>
+
+          <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="id_username" class="form-label fw-semibold">Usuario</label>
+              {{ form.username }}
+            </div>
+
+            <div class="mb-3">
+              <label for="id_email" class="form-label fw-semibold">Email</label>
+              {{ form.email }}
+            </div>
+
+            <div class="mb-3">
+              <label for="id_password1" class="form-label fw-semibold">Contraseña</label>
+              {{ form.password1 }}
+            </div>
+
+            <div class="mb-3">
+              <label for="id_password2" class="form-label fw-semibold">Confirmar contraseña</label>
+              {{ form.password2 }}
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary fw-semibold">Registrarme</button>
+            </div>
+          </form>
+
+          <div class="text-center mt-3">
+            <small class="text-muted">¿Ya tenés cuenta?
+              <a href="{% url 'login' %}" class="text-decoration-none text-primary fw-semibold">Iniciá sesión</a>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
